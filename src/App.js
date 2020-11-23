@@ -11,13 +11,13 @@ function App() {
   }, []);
 
   async function handleAddRepository() {
-    const res = api.post("repositories", {
-      title: "aaaa",
-      url: "aaa.com",
-      techs: ["node"],
+    const res = await api.post("repositories", {
+      title: `Repository ${Date.now()}`,
+      url: "http://github.com/sethwololo",
+      techs: ["reactjs", "nodejs"],
     });
-
-    setRepos([...repositories, res.data]);
+    const repository = res.data;
+    setRepos([...repositories, repository]);
   }
 
   async function handleRemoveRepository(id) {
@@ -31,10 +31,13 @@ function App() {
         {repositories.map((repo) => (
           <li key={repo.id}>
             {repo.title}
-            <button onClick={() => handleRemoveRepository(repo.id)}>Remover</button>
+            <button onClick={() => handleRemoveRepository(repo.id)}>
+              Remover
+            </button>
           </li>
         ))}
       </ul>
+
       <button onClick={handleAddRepository}>Adicionar</button>
     </div>
   );
